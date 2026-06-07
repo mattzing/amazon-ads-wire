@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Amazon Ads Wire — Live Amazon Advertising News</title>
+<meta name="description" content="A live newswire for Amazon Advertising. The latest headlines on Sponsored Ads, Amazon DSP, Marketing Cloud (AMC), streaming TV, and retail media — auto-aggregated from across the web." />
+<meta name="color-scheme" content="light" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The Amazon Ads Wire" />
+<meta property="og:description" content="A live newswire for Amazon Advertising — Sponsored Ads, DSP, AMC, streaming TV & retail media, updated continuously." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231b1915'/%3E%3Cpath d='M16 58 q12 -26 24 0 t24 0 t20 0' fill='none' stroke='%23ff8a00' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:#f4efe4;
+    --paper-2:#ebe4d5;
+    --card:#fcfaf4;
+    --ink:#1b1915;
+    --ink-soft:#39342b;
+    --muted:#6e6553;
+    --line:#dbd2c0;
+    --line-strong:#c4b89f;
+    --amber:#b5500e;
+    --amber-bright:#ff8a00;
+    --red:#b23a2e;
+    --teal:#15534a;
+    --maxw:1240px;
+    --serif:"Fraunces", Georgia, serif;
+    --read:"Newsreader", Georgia, serif;
+    --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--read);
+    font-size:18px;
+    line-height:1.5;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* faint paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 26px; position:relative; z-index:1; }
+
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--amber-bright); color:#1b1915; }
+
+  /* ---------- top strip ---------- */
+  .topstrip{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .topstrip .wrap{ display:flex; align-items:center; gap:18px; height:38px; }
+  .live{ display:inline-flex; align-items:center; gap:7px; color:var(--ink); font-weight:600; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:var(--red); box-shadow:0 0 0 0 rgba(178,58,46,.55); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(178,58,46,.5);} 70%{ box-shadow:0 0 0 9px rgba(178,58,46,0);} 100%{ box-shadow:0 0 0 0 rgba(178,58,46,0);} }
+  .topstrip .sep{ width:1px; height:14px; background:var(--line-strong); }
+  .topstrip .right{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+  #updated b{ color:var(--ink-soft); font-weight:600; }
+
+  /* ---------- masthead ---------- */
+  header.mast{ background:var(--paper); border-bottom:2px solid var(--ink); }
+  .mast .wrap{ padding-top:30px; padding-bottom:22px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.42em; text-transform:uppercase;
+    color:var(--amber); text-align:center; margin:0 0 12px;
+  }
+  .nameplate{
+    font-family:var(--serif);
+    font-weight:900;
+    font-optical-sizing:auto;
+    text-align:center;
+    line-height:.92;
+    letter-spacing:-.02em;
+    margin:0;
+    font-size:clamp(40px, 8.4vw, 104px);
+    color:var(--ink);
+  }
+  .nameplate .amp{ color:var(--amber); }
+  .tagline{
+    text-align:center; font-family:var(--read); font-style:italic; color:var(--ink-soft);
+    margin:14px auto 0; max-width:640px; font-size:clamp(15px,2vw,19px);
+  }
+  .rule-deco{ display:flex; align-items:center; gap:14px; max-width:340px; margin:16px auto 0; color:var(--line-strong); }
+  .rule-deco::before, .rule-deco::after{ content:""; flex:1; height:1px; background:var(--line-strong); }
+  .rule-deco span{ font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); }
+
+  /* ---------- ticker ---------- */
+  .ticker{
+    background:var(--ink); color:var(--paper); border-bottom:1px solid #000;
+    overflow:hidden; position:sticky; top:0; z-index:40;
+  }
+  .ticker-inner{ display:flex; align-items:center; height:42px; }
+  .ticker-tag{
+    flex:none; align-self:stretch; display:flex; align-items:center; gap:8px;
+    background:var(--amber-bright); color:#1b1915; padding:0 24px 0 16px;
+    font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+    clip-path:polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    z-index:2;
+  }
+  .ticker-tag .dot{ background:#1b1915; animation:none; }
+  .ticker-view{ overflow:hidden; flex:1; -webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent); mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent); }
+  .ticker-track{ display:inline-flex; align-items:center; white-space:nowrap; will-change:transform; animation:marquee 60s linear infinite; }
+  .ticker:hover .ticker-track{ animation-play-state:paused; }
+  .ticker-track a{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.01em; color:var(--paper);
+    padding:0 4px; display:inline-flex; align-items:center; gap:14px; opacity:.92;
+  }
+  .ticker-track a:hover{ color:var(--amber-bright); }
+  .ticker-track .star{ color:var(--amber-bright); }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  /* ---------- toolbar ---------- */
+  .toolbar{ position:sticky; top:42px; z-index:30; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .toolbar .wrap{ display:flex; align-items:center; gap:16px; height:60px; }
+  .chips{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:2px 0; }
+  .chips::-webkit-scrollbar{ display:none; }
+  .chip{
+    flex:none; cursor:pointer; border:1px solid var(--line-strong); background:transparent; color:var(--ink-soft);
+    font-family:var(--mono); font-size:12px; letter-spacing:.05em; text-transform:uppercase; font-weight:500;
+    padding:8px 14px; border-radius:999px; transition:.18s ease; white-space:nowrap;
+  }
+  .chip:hover{ border-color:var(--ink); color:var(--ink); }
+  .chip[aria-pressed="true"]{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .chip .n{ opacity:.55; margin-left:5px; font-size:11px; }
+  .search{ margin-left:auto; display:flex; align-items:center; gap:8px; border:1px solid var(--line-strong); border-radius:999px; padding:7px 14px; background:var(--card); min-width:170px; transition:.18s; }
+  .search:focus-within{ border-color:var(--ink); }
+  .search svg{ flex:none; color:var(--muted); }
+  .search input{ border:none; background:transparent; outline:none; font-family:var(--mono); font-size:13px; color:var(--ink); width:100%; }
+  .search input::placeholder{ color:var(--muted); }
+  .refresh{
+    flex:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ink); background:var(--ink); color:var(--paper);
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding:8px 13px; border-radius:999px; transition:.18s;
+  }
+  .refresh:hover{ background:var(--amber); border-color:var(--amber); }
+  .refresh.spin svg{ animation:spin .8s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ---------- main ---------- */
+  main{ padding:34px 0 60px; }
+
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin:0 0 18px; }
+  .section-head h2{ font-family:var(--mono); font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink); margin:0; font-weight:600; }
+  .section-head .meta{ font-family:var(--mono); font-size:12px; color:var(--muted); }
+  .section-head .line{ flex:1; height:1px; background:var(--line); }
+
+  /* hero */
+  .hero{ display:grid; grid-template-columns:1.55fr 1fr; gap:0; border-top:3px solid var(--ink); border-bottom:1px solid var(--line); margin-bottom:30px; }
+  .hero-lead{ padding:28px 38px 30px 0; border-right:1px solid var(--line); }
+  .hero-lead .kicker, .card .kicker, .side .kicker{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--amber); font-weight:600;
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:14px;
+  }
+  .hero-lead h1{
+    font-family:var(--serif); font-weight:600; font-optical-sizing:auto; letter-spacing:-.018em; line-height:1.02;
+    font-size:clamp(30px, 4.4vw, 56px); margin:0 0 16px; color:var(--ink);
+  }
+  .hero-lead h1 a{ background-image:linear-gradient(var(--amber),var(--amber)); background-size:0 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s; }
+  .hero-lead h1 a:hover{ background-size:100% 2px; }
+  .byline{ font-family:var(--mono); font-size:12.5px; letter-spacing:.03em; color:var(--muted); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .byline .src{ color:var(--ink); font-weight:600; }
+  .byline a.readlink{ color:var(--amber); border-bottom:1px solid color-mix(in srgb, var(--amber) 40%, transparent); padding-bottom:1px; }
+  .byline a.readlink:hover{ border-color:var(--amber); }
+
+  .hero-side{ padding:28px 0 30px 32px; display:flex; flex-direction:column; gap:0; }
+  .side-label{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 6px; }
+  .side{ padding:15px 0; border-bottom:1px dotted var(--line-strong); }
+  .side:last-child{ border-bottom:none; }
+  .side .kicker{ margin-bottom:7px; font-size:10.5px; }
+  .side h3{ font-family:var(--serif); font-weight:600; font-size:19px; line-height:1.12; letter-spacing:-.01em; margin:0 0 6px; }
+  .side h3 a:hover{ color:var(--amber); }
+  .side .byline{ font-size:11.5px; }
+
+  /* grid */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:0 30px; }
+  .card{ padding:24px 0 22px; border-top:1px solid var(--line); position:relative; }
+  .card::before{ content:""; position:absolute; top:-1px; left:0; width:0; height:3px; background:var(--amber-bright); transition:width .3s ease; }
+  .card:hover::before{ width:46px; }
+  .card .kicker{ margin-bottom:11px; font-size:10.5px; }
+  .card h3{ font-family:var(--serif); font-weight:600; font-optical-sizing:auto; font-size:22px; line-height:1.1; letter-spacing:-.012em; margin:0 0 12px; color:var(--ink); }
+  .card h3 a{ background-image:linear-gradient(var(--ink),var(--ink)); background-size:0 1px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s, color .2s; }
+  .card:hover h3 a{ color:var(--ink); background-size:100% 1px; }
+  .card .byline{ font-size:11.5px; }
+  .card .num{ position:absolute; top:24px; right:0; font-family:var(--mono); font-size:11px; color:var(--line-strong); }
+
+  /* reveal anim */
+  .reveal{ opacity:0; transform:translateY(14px); animation:reveal .6s cubic-bezier(.2,.7,.3,1) forwards; }
+  @keyframes reveal{ to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion:reduce){ .reveal{ animation:none; opacity:1; transform:none; } .ticker-track{ animation:none; } .dot{ animation:none; } }
+
+  /* skeletons */
+  .sk{ background:linear-gradient(90deg, var(--line) 25%, color-mix(in srgb,var(--line) 50%, var(--paper)) 37%, var(--line) 63%); background-size:400% 100%; animation:sh 1.4s ease infinite; border-radius:3px; }
+  @keyframes sh{ 0%{ background-position:100% 0;} 100%{ background-position:-100% 0;} }
+  .sk-card{ padding:24px 0 22px; border-top:1px solid var(--line); }
+  .sk-line{ height:13px; margin-bottom:10px; }
+
+  /* empty / error */
+  .state{ text-align:center; padding:60px 20px; border-top:1px solid var(--line); }
+  .state .ico{ font-size:34px; }
+  .state h3{ font-family:var(--serif); font-weight:600; font-size:26px; margin:14px 0 8px; }
+  .state p{ color:var(--muted); max-width:440px; margin:0 auto 20px; font-size:16px; }
+  .state button{ cursor:pointer; font-family:var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:.06em; border:1px solid var(--ink); background:var(--ink); color:var(--paper); padding:11px 20px; border-radius:999px; }
+  .state button:hover{ background:var(--amber); border-color:var(--amber); }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:2px solid var(--ink); background:var(--paper-2); margin-top:30px; }
+  footer .wrap{ padding:40px 26px 48px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px; }
+  footer h4{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 14px; }
+  footer .brand{ font-family:var(--serif); font-weight:900; font-size:30px; line-height:.95; margin:0 0 12px; }
+  footer .brand .amp{ color:var(--amber); }
+  footer p{ font-size:14.5px; color:var(--ink-soft); margin:0 0 12px; max-width:42ch; }
+  footer .tlist{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px; }
+  footer .tlist a{ font-family:var(--mono); font-size:12.5px; letter-spacing:.03em; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px; }
+  footer .tlist a:hover{ color:var(--amber); }
+  footer .tlist a::before{ content:"›"; color:var(--amber); }
+  .colophon{ border-top:1px solid var(--line); }
+  .colophon .wrap{ padding:16px 26px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--muted); text-transform:uppercase; }
+  .colophon .sep{ width:1px; height:12px; background:var(--line-strong); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:880px){
+    body{ font-size:17px; }
+    .hero{ grid-template-columns:1fr; }
+    .hero-lead{ padding:24px 0 26px; border-right:none; border-bottom:1px solid var(--line); }
+    .hero-side{ padding:22px 0 6px; }
+    footer .wrap{ grid-template-columns:1fr; gap:26px; }
+    .topstrip .hide-sm{ display:none; }
+  }
+  @media (max-width:560px){
+    .wrap{ padding:0 18px; }
+    .search{ display:none; }
+    .toolbar .wrap{ height:56px; }
+    .card h3{ font-size:20px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- top strip -->
+  <div class="topstrip">
+    <div class="wrap">
+      <span class="live"><span class="dot"></span> Live</span>
+      <span class="sep"></span>
+      <span id="today" class="hide-sm"></span>
+      <span class="right">
+        <span id="count">— stories</span>
+        <span class="sep hide-sm"></span>
+        <span id="updated" class="hide-sm">syncing…</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- masthead -->
+  <header class="mast">
+    <div class="wrap">
+      <p class="eyebrow">A Newswire for Amazon Advertising</p>
+      <h1 class="nameplate">The Amazon&nbsp;Ads <span class="amp">Wire</span></h1>
+      <p class="tagline">Every dispatch on Sponsored Ads, Amazon DSP, Marketing Cloud, streaming TV, and retail media — pulled continuously from across the press.</p>
+      <div class="rule-deco"><span>Est. 2026 · Always On</span></div>
+    </div>
+  </header>
+
+  <!-- ticker -->
+  <div class="ticker" id="ticker" hidden>
+    <div class="ticker-inner">
+      <span class="ticker-tag"><span class="dot"></span> Breaking</span>
+      <div class="ticker-view"><div class="ticker-track" id="ticker-track"></div></div>
+    </div>
+  </div>
+
+  <!-- toolbar -->
+  <nav class="toolbar">
+    <div class="wrap">
+      <div class="chips" id="chips" role="tablist" aria-label="Filter by topic"></div>
+      <label class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Search headlines  ( / )" autocomplete="off" aria-label="Search headlines" />
+      </label>
+      <button class="refresh" id="refresh" aria-label="Refresh feed">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+        <span class="rtxt">Refresh</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="hero-wrap"></section>
+
+    <div class="section-head">
+      <h2>Latest Dispatches</h2>
+      <span class="meta" id="grid-meta"></span>
+      <span class="line"></span>
+    </div>
+    <section id="feed"></section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <p class="brand">The Amazon Ads <span class="amp">Wire</span></p>
+        <p>An independent, continuously-updated reading room for the Amazon Advertising ecosystem. Headlines are aggregated from public news sources and link straight to the original publishers.</p>
+        <p style="font-size:12.5px; color:var(--muted); font-family:var(--mono);">Not affiliated with, endorsed by, or sponsored by Amazon.com, Inc.</p>
+      </div>
+      <div>
+        <h4>Beats We Track</h4>
+        <ul class="tlist" id="footer-topics"></ul>
+      </div>
+      <div>
+        <h4>About the Wire</h4>
+        <p style="font-size:13.5px;">Built for advertisers, agencies, sellers and ad-tech watchers who need a single pane of glass on Amazon Ads. New stories surface automatically — refresh anytime, or leave it open and it self-updates every few minutes.</p>
+      </div>
+    </div>
+    <div class="colophon">
+      <div class="wrap">
+        <span>© 2026 The Amazon Ads Wire</span>
+        <span class="sep"></span>
+        <span>Aggregated via Google News</span>
+        <span class="sep"></span>
+        <span id="foot-updated">—</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- config: topic feeds ---------------- */
+  var FEEDS = [
+    { id:"all",       label:"The Wire",        q:'("Amazon Advertising" OR "Amazon Ads" OR "Amazon DSP" OR "Amazon retail media")' },
+    { id:"sponsored", label:"Sponsored Ads",   q:'Amazon ("Sponsored Products" OR "Sponsored Brands" OR "Sponsored Display" OR "Sponsored TV")' },
+    { id:"dsp",       label:"Amazon DSP",      q:'"Amazon DSP" OR "Amazon Demand Side Platform"' },
+    { id:"amc",       label:"Marketing Cloud", q:'"Amazon Marketing Cloud" OR "Amazon AMC" OR "Amazon Ads API"' },
+    { id:"video",     label:"Streaming TV",    q:'Amazon ("Prime Video ads" OR "Prime Video advertising" OR "Fire TV advertising" OR "Twitch advertising")' },
+    { id:"retail",    label:"Retail Media",    q:'Amazon "retail media"' }
+  ];
+
+  var CHIPS = [
+    { id:"all",       label:"All news" },
+    { id:"sponsored", label:"Sponsored Ads" },
+    { id:"dsp",       label:"Amazon DSP" },
+    { id:"amc",       label:"Marketing Cloud" },
+    { id:"video",     label:"Streaming TV" },
+    { id:"retail",    label:"Retail Media" }
+  ];
+  var LABELS = {}; FEEDS.forEach(function(f){ LABELS[f.id]=f.label; });
+  LABELS.all = "Amazon Ads";
+
+  function gnews(q){
+    return "https://news.google.com/rss/search?q=" + encodeURIComponent(q + " when:30d") +
+           "&hl=en-US&gl=US&ceid=US:en";
+  }
+
+  /* ---------------- resilient fetching (no backend) ---------------- */
+  // Static hosting can't call Google News directly (CORS), so we route through
+  // public read proxies. Only proxies that return an Access-Control-Allow-Origin
+  // header are usable from the browser — these two are verified to. allorigins/get
+  // is richest (~30+ items per beat); rss2json is the reliable fallback (~10).
+  var SOURCES = [
+    { name:"allorigins", url:function(r){ return "https://api.allorigins.win/get?url=" + encodeURIComponent(r); }, kind:"wrapped" },
+    { name:"rss2json",   url:function(r){ return "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(r); }, kind:"rss2json" }
+  ];
+
+  function timedFetch(url, ms){
+    var ctrl = new AbortController();
+    var t = setTimeout(function(){ ctrl.abort(); }, ms||10000);
+    return fetch(url, { signal:ctrl.signal, mode:"cors" }).finally(function(){ clearTimeout(t); });
+  }
+
+  function mkItem(rawTitle, link, pubDate, srcEl){
+    var title = (rawTitle||"").trim();
+    var source = (srcEl||"").trim();
+    var idx = title.lastIndexOf(" - ");
+    if (idx > 0){
+      var suffix = title.slice(idx+3).trim();
+      if (!source) source = suffix;
+      if (suffix === source) title = title.slice(0, idx).trim();
+    }
+    if (!source) source = "Newswire";
+    var t = pubDate ? Date.parse(pubDate) : NaN;
+    return { title:title, link:link||"", source:source, time:isNaN(t)?0:t };
+  }
+
+  function parseXml(xmlText){
+    var doc = new DOMParser().parseFromString(xmlText, "text/xml");
+    if (doc.querySelector("parsererror")) throw new Error("xml parse error");
+    var nodes = doc.querySelectorAll("item");
+    if (!nodes.length) throw new Error("no items");
+    var out = [];
+    nodes.forEach(function(n){
+      var t = n.querySelector("title"); t = t ? t.textContent : "";
+      var l = n.querySelector("link"); l = l ? l.textContent : "";
+      var p = n.querySelector("pubDate"); p = p ? p.textContent : "";
+      var s = n.getElementsByTagName("source")[0]; s = s ? s.textContent : "";
+      if (t && l) out.push(mkItem(t, l, p, s));
+    });
+    return out;
+  }
+
+  function parseResponse(res, kind){
+    if (kind === "rss2json"){
+      return res.json().then(function(d){
+        if (!d || d.status !== "ok" || !Array.isArray(d.items) || !d.items.length) throw new Error("rss2json empty");
+        return d.items.map(function(it){ return mkItem(it.title, it.link, it.pubDate, ""); });
+      });
+    }
+    if (kind === "wrapped"){
+      return res.json().then(function(d){ return parseXml((d && d.contents) || ""); });
+    }
+    return res.text().then(function(txt){ return parseXml(txt); });
+  }
+
+  function fetchFeed(feed){
+    var rss = gnews(feed.q);
+    var i = 0;
+    function attempt(){
+      if (i >= SOURCES.length) return Promise.resolve([]);
+      var src = SOURCES[i++];
+      return timedFetch(src.url(rss), 10000).then(function(res){
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return parseResponse(res, src.kind);
+      }).then(function(items){
+        if (!items || !items.length) throw new Error("empty");
+        return items.map(function(it){ it.cats = [feed.id]; return it; });
+      }).catch(function(){ return attempt(); });
+    }
+    return attempt();
+  }
+
+  /* ---------------- merge + dedupe ---------------- */
+  function keyOf(it){ return it.title.toLowerCase().replace(/[^a-z0-9]+/g,"").slice(0,90); }
+
+  function loadAll(){
+    return Promise.all(FEEDS.map(fetchFeed)).then(function(lists){
+      var map = {};
+      lists.forEach(function(list){
+        (list||[]).forEach(function(it){
+          var k = keyOf(it);
+          if (!k) return;
+          if (!map[k]){ map[k] = it; }
+          else { it.cats.forEach(function(c){ if (map[k].cats.indexOf(c) < 0) map[k].cats.push(c); }); }
+        });
+      });
+      var arr = Object.keys(map).map(function(k){ return map[k]; });
+      arr.sort(function(a,b){ return b.time - a.time; });
+      return arr;
+    });
+  }
+
+  /* ---------------- helpers ---------------- */
+  function esc(s){ return (s||"").replace(/[&<>"]/g, function(c){ return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]; }); }
+  function timeAgo(ms){
+    if (!ms) return "";
+    var s = Math.floor((Date.now()-ms)/1000);
+    if (s < 60) return "just now";
+    var m = Math.floor(s/60); if (m < 60) return m+"m ago";
+    var h = Math.floor(m/60); if (h < 24) return h+"h ago";
+    var d = Math.floor(h/24); if (d < 30) return d+"d ago";
+    return Math.floor(d/30)+"mo ago";
+  }
+  function primaryCat(it){
+    var order = ["sponsored","dsp","amc","video","retail","all"];
+    for (var i=0;i<order.length;i++){ if (it.cats.indexOf(order[i])>=0) return order[i]; }
+    return "all";
+  }
+  var $ = function(s){ return document.querySelector(s); };
+
+  /* ---------------- state ---------------- */
+  var ALL = [];
+  var filter = "all";
+  var query = "";
+  var firstLoad = true;
+  var lastStamp = 0;
+
+  /* ---------------- rendering ---------------- */
+  function visible(){
+    return ALL.filter(function(it){
+      if (filter !== "all" && it.cats.indexOf(filter) < 0) return false;
+      if (query){
+        var hay = (it.title + " " + it.source).toLowerCase();
+        if (hay.indexOf(query) < 0) return false;
+      }
+      return true;
+    });
+  }
+
+  function byline(it, withRead){
+    var out = '<div class="byline"><span class="src">'+esc(it.source)+'</span>';
+    if (it.time) out += '<span>·</span><span>'+timeAgo(it.time)+'</span>';
+    if (withRead) out += '<span>·</span><a class="readlink" href="'+esc(it.link)+'" target="_blank" rel="noopener">Read at source ↗</a>';
+    out += '</div>';
+    return out;
+  }
+  function kicker(it){ return '<span class="kicker">'+esc(LABELS[primaryCat(it)])+'</span>'; }
+
+  function renderHero(list){
+    var wrap = $("#hero-wrap");
+    if (!list.length){ wrap.innerHTML = ""; return; }
+    var lead = list[0];
+    var side = list.slice(1, 5);
+    var html = '<div class="hero reveal">';
+    html += '<div class="hero-lead">'+kicker(lead)+
+            '<h1><a href="'+esc(lead.link)+'" target="_blank" rel="noopener">'+esc(lead.title)+'</a></h1>'+
+            byline(lead, true)+'</div>';
+    html += '<div class="hero-side"><p class="side-label">Also on the wire</p>';
+    side.forEach(function(it){
+      html += '<div class="side">'+kicker(it)+
+              '<h3><a href="'+esc(it.link)+'" target="_blank" rel="noopener">'+esc(it.title)+'</a></h3>'+
+              byline(it, false)+'</div>';
+    });
+    html += '</div></div>';
+    wrap.innerHTML = html;
+  }
+
+  function renderGrid(list){
+    var feed = $("#feed");
+    var rest = list.slice(5);
+    $("#grid-meta").textContent = list.length ? (list.length + " stories" + (filter!=="all" ? " · " + LABELS[filter] : "")) : "";
+    if (!rest.length){
+      if (list.length){ feed.innerHTML = '<div class="state"><p style="font-family:var(--mono);font-size:13px;">That’s the full wire for this view.</p></div>'; }
+      else {
+        feed.innerHTML = '<div class="state"><div class="ico">🔎</div><h3>No matching dispatches</h3><p>Nothing matches that filter or search just yet. Try another beat or clear the search.</p><button id="clearq">Clear filters</button></div>';
+        var cb = $("#clearq"); if (cb) cb.onclick = function(){ filter="all"; query=""; $("#search").value=""; syncChips(); rerender(); };
+      }
+      return;
+    }
+    var html = '<div class="grid">';
+    rest.forEach(function(it, i){
+      var delay = Math.min(i*40, 480);
+      html += '<article class="card reveal" style="animation-delay:'+delay+'ms">'+
+              '<span class="num">'+String(i+1).padStart(2,"0")+'</span>'+
+              kicker(it)+
+              '<h3><a href="'+esc(it.link)+'" target="_blank" rel="noopener">'+esc(it.title)+'</a></h3>'+
+              byline(it, false)+
+              '</article>';
+    });
+    html += '</div>';
+    feed.innerHTML = html;
+  }
+
+  function renderTicker(){
+    var top = ALL.slice(0, 14);
+    if (!top.length) return;
+    $("#ticker").hidden = false;
+    var inner = top.map(function(it){
+      return '<a href="'+esc(it.link)+'" target="_blank" rel="noopener"><span class="star">✦</span> '+esc(it.title)+'</a>';
+    }).join("");
+    $("#ticker-track").innerHTML = inner + inner;
+  }
+
+  function rerender(){
+    var list = visible();
+    renderHero(list);
+    renderGrid(list);
+  }
+
+  function refreshUpdatedLabel(){
+    if (lastStamp){ $("#updated").innerHTML = "Updated <b>"+timeAgo(lastStamp)+"</b>"; }
+  }
+
+  function updateCounts(stamp){
+    $("#count").textContent = ALL.length ? (ALL.length + " stories") : "— stories";
+    var c = {}; CHIPS.forEach(function(ch){ c[ch.id]=0; });
+    ALL.forEach(function(it){ CHIPS.forEach(function(ch){ if (ch.id==="all" || it.cats.indexOf(ch.id)>=0) c[ch.id]++; }); });
+    document.querySelectorAll(".chip").forEach(function(el){
+      var id = el.getAttribute("data-id");
+      var n = el.querySelector(".n"); if (n) n.textContent = c[id] ? c[id] : "";
+    });
+    if (stamp){
+      lastStamp = stamp;
+      refreshUpdatedLabel();
+      $("#foot-updated").textContent = "Last sync " + new Date(stamp).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+    }
+  }
+
+  /* ---------------- skeleton + error ---------------- */
+  function showSkeleton(){
+    var cards = "";
+    for (var i=0;i<6;i++){
+      cards += '<div class="sk-card"><div class="sk sk-line" style="width:34%"></div>'+
+               '<div class="sk sk-line" style="height:22px;width:92%"></div>'+
+               '<div class="sk sk-line" style="height:22px;width:70%"></div>'+
+               '<div class="sk sk-line" style="width:46%;margin-top:14px"></div></div>';
+    }
+    $("#feed").innerHTML = '<div class="grid">'+cards+'</div>';
+    $("#hero-wrap").innerHTML = '<div class="hero"><div class="hero-lead">'+
+      '<div class="sk sk-line" style="width:30%"></div>'+
+      '<div class="sk sk-line" style="height:46px;width:96%;margin:6px 0"></div>'+
+      '<div class="sk sk-line" style="height:46px;width:60%"></div>'+
+      '<div class="sk sk-line" style="width:40%;margin-top:16px"></div></div>'+
+      '<div class="hero-side" style="padding-left:32px">'+
+      '<div class="sk sk-line" style="width:50%"></div>'+
+      '<div class="sk sk-line" style="height:30px;width:90%;margin:8px 0 20px"></div>'+
+      '<div class="sk sk-line" style="height:30px;width:85%"></div></div></div>';
+  }
+
+  function showError(){
+    $("#hero-wrap").innerHTML = "";
+    $("#feed").innerHTML = '<div class="state"><div class="ico">📡</div>'+
+      '<h3>The wire went quiet</h3>'+
+      '<p>We couldn’t reach the news sources just now — usually a momentary network or proxy hiccup. Give it another try.</p>'+
+      '<button id="retry">Try again</button></div>';
+    var r = $("#retry"); if (r) r.onclick = function(){ load(true); };
+    $("#updated").innerHTML = "Offline";
+  }
+
+  /* ---------------- load ---------------- */
+  var loading = false;
+  function load(manual){
+    if (loading) return;
+    loading = true;
+    var btn = $("#refresh");
+    if (manual) btn.classList.add("spin");
+    if (firstLoad) showSkeleton();
+
+    loadAll().then(function(arr){
+      loading = false;
+      btn.classList.remove("spin");
+      if (!arr.length){ if (firstLoad || !ALL.length) showError(); return; }
+      ALL = arr;
+      firstLoad = false;
+      renderTicker();
+      rerender();
+      updateCounts(Date.now());
+    }).catch(function(){
+      loading = false;
+      btn.classList.remove("spin");
+      if (firstLoad || !ALL.length) showError();
+    });
+  }
+
+  /* ---------------- chips / search wiring ---------------- */
+  function syncChips(){
+    document.querySelectorAll(".chip").forEach(function(el){
+      el.setAttribute("aria-pressed", el.getAttribute("data-id") === filter ? "true" : "false");
+    });
+  }
+  function buildChips(){
+    var box = $("#chips");
+    box.innerHTML = CHIPS.map(function(ch){
+      return '<button class="chip" role="tab" data-id="'+ch.id+'" aria-pressed="'+(ch.id===filter)+'">'+
+             ch.label+'<span class="n"></span></button>';
+    }).join("");
+    box.querySelectorAll(".chip").forEach(function(el){
+      el.addEventListener("click", function(){
+        filter = el.getAttribute("data-id");
+        syncChips(); rerender();
+        $("#hero-wrap").scrollIntoView({behavior:"smooth", block:"nearest"});
+      });
+    });
+    $("#footer-topics").innerHTML = CHIPS.filter(function(c){return c.id!=="all";}).map(function(c){
+      return '<li><a href="#" data-id="'+c.id+'">'+c.label+'</a></li>';
+    }).join("");
+    $("#footer-topics").querySelectorAll("a").forEach(function(a){
+      a.addEventListener("click", function(e){ e.preventDefault(); filter=a.getAttribute("data-id"); syncChips(); rerender(); window.scrollTo({top:0,behavior:"smooth"}); });
+    });
+  }
+
+  function initSearch(){
+    var inp = $("#search");
+    var deb;
+    inp.addEventListener("input", function(){
+      clearTimeout(deb);
+      deb = setTimeout(function(){ query = inp.value.trim().toLowerCase(); rerender(); }, 160);
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "/" && document.activeElement !== inp){ e.preventDefault(); inp.focus(); }
+      if (e.key === "Escape" && document.activeElement === inp){ inp.value=""; query=""; inp.blur(); rerender(); }
+    });
+  }
+
+  /* ---------------- boot ---------------- */
+  function init(){
+    try { $("#today").textContent = new Date().toLocaleDateString([], {weekday:"long", month:"long", day:"numeric", year:"numeric"}); } catch(e){}
+    buildChips();
+    initSearch();
+    $("#refresh").addEventListener("click", function(){ load(true); });
+    load(false);
+    setInterval(function(){ if (ALL.length) refreshUpdatedLabel(); }, 60000);
+    setInterval(function(){ if (!document.hidden) load(false); }, 5*60000);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+</body>
+</html>
